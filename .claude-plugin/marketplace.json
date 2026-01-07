@@ -1,0 +1,18 @@
+{
+    "name": "web-dev-tools",
+    "owner": {
+        "name": "DevTools Team",
+        "email": "yekaisheng@uniontech.com"
+    },
+    "plugins": [
+        {
+            "name": "go-formatter",
+            "source": "./go-formatter",
+            "description": "Automatic code formatting on save",
+            "version": "1.0.0",
+            "author": {
+                "name": "DevTools Team"
+            }
+        }
+    ]
+}
