@@ -13,6 +13,15 @@
             "author": {
                 "name": "DevTools Team"
             }
+        },
+        {
+            "name": "fetch-mcp",
+            "source": "./fetch-mcp",
+            "description": "A plugin to fetch data from the MCP API.",
+            "version": "1.0.0",
+            "author": {
+                "name": "DevTools Team"
+            }
         }
     ]
 }
