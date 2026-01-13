@@ -1,0 +1,14 @@
+# GoFrame Best Practices Plugin .gitignore
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Local configuration
+.claude/*.local.md
