@@ -6,10 +6,7 @@
     "name": "iceleaf",
     "email": "iceleaf@example.com"
   },
-  "repository": "https://github.com/iceleaf/my-cc-plugins",
-  "bugs": {
-    "url": "https://github.com/iceleaf/my-cc-plugins/issues"
-  },
+  "repository": "https://github.com/iceleaf916/my-cc-plugins",
   "keywords": [
     "go",
     "goframe",
@@ -17,6 +14,5 @@
     "best-practices",
     "development"
   ],
-  "readme": "README.md",
   "license": "MIT"
 }
