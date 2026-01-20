@@ -1,7 +1,7 @@
 {
-  "name": "go-frame-best-practices",
+  "name": "udcp-skills",
   "version": "0.1.0",
-  "description": "GoFrame 框架开发最佳实践指南，提供项目结构、分层架构、配置管理、数据库操作等开发规范",
+  "description": "A collection of skills for udcp development",
   "author": {
     "name": "iceleaf",
     "email": "iceleaf@example.com"
