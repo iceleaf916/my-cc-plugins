@@ -24,10 +24,10 @@
             }
         },
         {
-            "name": "go-frame-best-practices",
-            "source": "./go-frame-best-practices",
-            "description": "A plugin to provide best practices for Go Frame development skill.",
-            "version": "1.0.0",
+            "name": "udcp-skills",
+            "source": "./udcp-skills",
+            "description": "A collection of skills for udcp development",
+            "version": "0.1.1",
             "author": {
                 "name": "DevTools Team"
             }
