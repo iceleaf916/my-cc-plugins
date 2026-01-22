@@ -1,0 +1,36 @@
+{
+    "name": "udcp-cc-plugins",
+    "owner": {
+        "name": "DevTools Team",
+        "email": "yekaisheng@uniontech.com"
+    },
+    "plugins": [
+        {
+            "name": "go-formatter",
+            "source": "./go-formatter",
+            "description": "Automatic code formatting on save",
+            "version": "1.0.0",
+            "author": {
+                "name": "DevTools Team"
+            }
+        },
+        {
+            "name": "fetch-mcp",
+            "source": "./fetch-mcp",
+            "description": "A plugin to fetch data from the MCP API.",
+            "version": "1.0.0",
+            "author": {
+                "name": "DevTools Team"
+            }
+        },
+        {
+            "name": "udcp-skills",
+            "source": "./udcp-skills",
+            "description": "A collection of skills for udcp development",
+            "version": "0.1.1",
+            "author": {
+                "name": "DevTools Team"
+            }
+        }
+    ]
+}

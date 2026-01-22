@@ -1,0 +1,16 @@
+{
+    "hooks": {
+        "PreToolUse": [
+            {
+                "matcher": "Write|Edit|Update",
+                "hooks": [
+                    {
+                        "type": "command",
+                        "command": "jq -r '.tool_input.file_path | select(endswith(\".go\"))' | xargs -r goimports -w",
+                        "statusMessage": "格式化 Go 代码"
+                    }
+                ]
+            }
+        ]
+    }
+}

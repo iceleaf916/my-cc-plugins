@@ -1,0 +1,8 @@
+{
+    "name": "go-formatter",
+    "description": "Automatic code formatting on save",
+    "version": "1.0.0",
+    "author": {
+        "name": "DevTools Team"
+    }
+}

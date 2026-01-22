@@ -1,0 +1,18 @@
+{
+  "name": "udcp-skills",
+  "version": "0.1.1",
+  "description": "A collection of skills for udcp development",
+  "author": {
+    "name": "iceleaf",
+    "email": "iceleaf@example.com"
+  },
+  "repository": "https://github.com/iceleaf916/my-cc-plugins",
+  "keywords": [
+    "go",
+    "goframe",
+    "framework",
+    "best-practices",
+    "development"
+  ],
+  "license": "MIT"
+}
