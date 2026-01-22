@@ -6,20 +6,20 @@
 
 ### 从插件市场安装
 
-插件市场地址: [https://gerrit.uniontech.com/udcp/devops/udcp-cc-plugins](https://gerrit.uniontech.com/udcp/devops/udcp-cc-plugins)
+插件市场地址: [https://gitlabwh.uniontech.com/ut000930/udcp-cc-plugins](https://gitlabwh.uniontech.com/ut000930/udcp-cc-plugins)
 
 在 Claude Code 中执行以下命令安装所有插件:
 
 ```bash
-/marketplace install https://gerrit.uniontech.com/udcp/devops/udcp-cc-plugins
+/marketplace install https://gitlabwh.uniontech.com/ut000930/udcp-cc-plugins
 ```
 
 如仅需安装单个插件，可指定插件名称:
 
 ```bash
-/marketplace install https://gerrit.uniontech.com/udcp/devops/udcp-cc-plugins/fetch-mcp
-/marketplace install https://gerrit.uniontech.com/udcp/devops/udcp-cc-plugins/go-formatter
-/marketplace install https://gerrit.uniontech.com/udcp/devops/udcp-cc-plugins/udcp-skills
+/marketplace install https://gitlabwh.uniontech.com/ut000930/udcp-cc-plugins/fetch-mcp
+/marketplace install https://gitlabwh.uniontech.com/ut000930/udcp-cc-plugins/go-formatter
+/marketplace install https://gitlabwh.uniontech.com/ut000930/udcp-cc-plugins/udcp-skills
 ```
 
 ### 手动安装
@@ -27,7 +27,7 @@
 克隆项目到本地:
 
 ```bash
-git clone https://gerrit.uniontech.com/udcp/devops/udcp-cc-plugins.git
+git clone https://gitlabwh.uniontech.com/ut000930/udcp-cc-plugins.git
 ```
 
 将插件目录放置到 Claude Code 的插件目录中。
