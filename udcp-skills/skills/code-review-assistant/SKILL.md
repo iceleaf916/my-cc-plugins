@@ -19,29 +19,32 @@ tags:
 提供结构化的代码审核工作流程，支持两种审核模式：
 
 ### 本地 Git 模式
+
 - 审核当前最新 commit
 - 审核暂存的修改 (`git add` 的文件)
 - 审核未暂存的修改（工作区变更）
 - 审核指定 commit 的 diff
 
 ### Gerrit Review 模式
+
 - 通过 Gerrit Change ID 进行代码审核
 - 自动获取 Change 详情和文件变更
 - 支持自动发布评审到 Gerrit
 
 **支持的语言**：
+
 - Golang（完整支持）
 - Qt/C++（完整支持）
 - Ansible（完整支持）
 
 ## Review 评分规则
 
-| 问题类型 | 建议 Score | 说明 |
-|---------|-----------|------|
-| 无问题 | **+1** | 代码质量优秀 |
-| 仅有 Nice to Have | **-1** | 有改进空间但不影响功能 |
-| 有 Should Fix | **-2** | 应该修复的问题 |
-| 有 Must Fix | **-2** | 必须修复的严重问题 |
+| 问题类型          | 建议 Score | 说明                   |
+| ----------------- | ---------- | ---------------------- |
+| 无问题            | **+1**     | 代码质量优秀           |
+| 仅有 Nice to Have | **-1**     | 有改进空间但不影响功能 |
+| 有 Should Fix     | **-2**     | 应该修复的问题         |
+| 有 Must Fix       | **-2**     | 必须修复的严重问题     |
 
 ## 使用方式
 
@@ -69,14 +72,14 @@ tags:
 
 ### 支持的本地 Git 审核范围
 
-| 用例 | Git 命令 | 说明 |
-|------|----------|------|
-| 最新 commit | `HEAD` | 审核最新的提交记录 |
-| 上一个 commit | `HEAD~1` 或 `HEAD^` | 审核倒数第二次提交 |
-| 指定 commit | `<commit_hash>` | 审核指定的某次提交 |
-| 暂存的修改 | `--staged` 或 `--cached` | 审核已 `git add` 但未提交的变更 |
-| 未暂存的修改 | `--unstaged` 或 `--working` | 审核工作区的变更 |
-| 两次 commit 之间 | `<commit_a>...<commit_b>` | 审核两个 commit 之间的差异 |
+| 用例             | Git 命令                    | 说明                            |
+| ---------------- | --------------------------- | ------------------------------- |
+| 最新 commit      | `HEAD`                      | 审核最新的提交记录              |
+| 上一个 commit    | `HEAD~1` 或 `HEAD^`         | 审核倒数第二次提交              |
+| 指定 commit      | `<commit_hash>`             | 审核指定的某次提交              |
+| 暂存的修改       | `--staged` 或 `--cached`    | 审核已 `git add` 但未提交的变更 |
+| 未暂存的修改     | `--unstaged` 或 `--working` | 审核工作区的变更                |
+| 两次 commit 之间 | `<commit_a>...<commit_b>`   | 审核两个 commit 之间的差异      |
 
 ### 不支持的审核范围
 
@@ -101,6 +104,7 @@ tags:
 4. **执行审核**：验证通过后开始审核流程
 
 **范围不合理的提示模板**：
+
 ```
 检测到您要求审核范围较大：{用户输入的范围}
 
@@ -119,6 +123,7 @@ tags:
 ### 阶段 1: 模式识别与获取变更
 
 1. **识别审核模式**：
+
    - 如果输入是有效的 Git commit hash 或 `HEAD`、`~` 相关表达式 → 本地 Git 模式
    - 如果输入包含 `--staged`、`--unstaged`、`--cached`、`--working` → 本地 Git 模式
    - 如果输入是 Gerrit Change ID 格式 → Gerrit 模式
@@ -140,6 +145,7 @@ tags:
 **重要说明**：本地 Git 模式会在阶段 4.5 执行自我审阅，通过读取源文件上下文验证发现的问题是否准确。
 
 对每个修改的文件：
+
 1. 获取文件的差异内容（diff）
 2. 识别文件类型（.go、.cpp、.hpp、.yml、.yaml 等）
 3. 应用排除规则（vendor、generated 等目录）
@@ -152,10 +158,12 @@ tags:
 检查规则详见 [references/golang-checks.md](references/golang-checks.md)。
 
 **排除规则**：
+
 - `vendor/` 目录及其所有文件不进行审核
 - 不提示关于 vendor 目录存储方式的改进建议
 
 **按严重程度分类**：
+
 - 🔴 **Must Fix** (-2): 错误处理缺失、SQL 注入、竞态条件、资源泄漏、空指针解引用
 - 🟡 **Should Fix** (-2): 命名规范、函数过长、魔法数字、缺少注释、过度嵌套
 - 🔵 **Nice to Have** (-1): 可用 stdlib、未使用变量/导入、可简化拼接
@@ -165,6 +173,7 @@ tags:
 检查规则详见 [references/cpp-checks.md](references/cpp-checks.md)
 
 **排除规则**：
+
 - `vendor/`、`third_party/`、`3rdparty/` 目录
 - 自动生成的文件（`moc_*.cpp`、`ui_*.h`、`qrc_*.cpp`）
 
@@ -173,6 +182,7 @@ tags:
 检查规则详见 [references/ansible-checks.md](references/ansible-checks.md)
 
 **排除规则**：
+
 - `galaxy_roles/`、`collections/`、`vendor/` 第三方目录
 - 主机清单文件（`inventory/`、`hosts`）的敏感内容
 
@@ -195,21 +205,23 @@ tags:
 **执行步骤**：
 
 1. **检查是否处于项目源码目录**：
+
    - 判断当前目录是否包含项目结构（如 `go.mod`、`CMakeLists.txt`、`main.yml` 等）
    - 如果不是项目目录，跳过自我审阅阶段
 
 2. **对每个发现的问题进行上下文验证**：
+
    - 使用 `Read` 工具读取问题所在文件的完整代码
    - 根据问题报告的文件路径和行号，定位到具体代码位置
    - 结合 git diff 的变更上下文，重新分析问题是否确实存在
 
 3. **审阅重点**：
 
-   | 问题类型 | 审阅策略 |
-   |---------|---------|
-   | Must Fix | 严格验证 - 必须确认问题真实存在，否则移除或降级 |
-   | Should Fix | 适度验证 - 结合完整代码确认问题合理性 |
-   | Nice to Have | 轻量验证 - 确认建议确实可改进 |
+   | 问题类型     | 审阅策略                                        |
+   | ------------ | ----------------------------------------------- |
+   | Must Fix     | 严格验证 - 必须确认问题真实存在，否则移除或降级 |
+   | Should Fix   | 适度验证 - 结合完整代码确认问题合理性           |
+   | Nice to Have | 轻量验证 - 确认建议确实可改进                   |
 
 4. **审阅操作**：
 
@@ -223,6 +235,7 @@ tags:
    - 相应调整最终的 Review 推荐分数
 
 **自我审阅模板记录**：
+
 ```
 [自我审阅]
 - 审阅文件数：N 个
@@ -233,6 +246,7 @@ tags:
 ```
 
 **重要原则**：
+
 - 只在能读取到项目源码时执行自我审阅
 - 审阅是为了减少误判，不是为了减少问题
 - 对于不确定的问题，倾向于保留而不是移除
@@ -247,27 +261,37 @@ tags:
 ### 阶段 6: 条件性发布评审（仅 Gerrit 模式）
 
 **检测用户意图**：检查用户提示词是否包含以下关键词之一：
+
 - "发布评论"
 - "提交评审"
 - "post review"
 - "发布到 Gerrit"
 - "submit review"
 
+**定位策略**：确定评论发布位置
+
+1. **优先定位**：第一个 Must Fix 问题的文件路径和行号
+2. **备选方案**：如果无 Must Fix，使用第一个 Should Fix 问题
+3. **兜底方案**：如果无问题（Score +1），使用第一个修改文件的第一行
+
 **如明确要求，使用 Gerrit MCP 工具发布**：
 
-**发布方式**：一次性发布完整评论，包含 Code Review Summary 和逐条问题说明。
+使用 `post_review_comment` 工具在选定的位置发布评审，**file_path** 和 **line_number** 用于确定评论在 Gerrit 界面中的显示位置：
 
-使用 `post_review_comment` 工具发布**一条评论**（不设置 `file_path` 和 `line_number`，仅设置 `message` 作为 Change 级别评论），**必须**在 `labels` 参数中设置 `Code-Review` 分数：
-
-| 参数 | 值 | 说明 |
-|------|-----|------|
-| `change_id` | Change ID | Gerrit Change 的标识符 |
-| `message` | 评论内容 | 完整的评论文本，格式见下方 |
-| `labels.Code-Review` | `-2` / `-1` / `+1` | 根据审核结果计算的评分 |
+| 参数                 | 值                      | 说明                         |
+| -------------------- | ----------------------- | ---------------------------- |
+| `change_id`          | Change ID               | Gerrit Change 的标识符      |
+| `file_path`          | 定位的文件路径          | 问题所在文件                |
+| `line_number`        | 定位的行号              | 问题所在行号                |
+| `message`            | 评论内容                | 完整的评论文本，格式见下方  |
+| `labels.Code-Review` | `-2` / `-1` / `+1`      | 根据审核结果计算的评分      |
+| `unresolved`         | `true`                  | 保持为未解决状态            |
 
 **重要提醒**：
-- **只发布一次评论**，不针对每个问题单独发布行级评论
-- 使用 Change 级别评论（不设置 `file_path` 和 `line_number`）
+
+- 发布**一次评论**，使用选定的文件和行号作为定位点
+- Review Summary 和逐条问题说明都包含在同一条 message 中
+- file_path 和 line_number 用于确定评论显示位置，不要求逐一条目独立评论
 - 每次调用 `post_review_comment` 时，**必须**设置 `labels.Code-Review`
 - 分数根据汇总 Summary 计算
 - Verified 字段不设置，由 Gerrit 默认处理
@@ -285,10 +309,11 @@ tags:
 
 适用于本地 Git 模式或 Gerrit 模式，作为完整的技术审核报告。
 
-```markdown
+````markdown
 # Code Review Report
 
 ## Metadata
+
 - **Review Type**: Local Git / Gerrit
 - **Commit/Change**: xxx
 - **Author**: xxx
@@ -298,6 +323,7 @@ tags:
 ---
 
 ## Summary
+
 总问题数: N (Must Fix: A, Should Fix: B, Nice to Have: C)
 
 **推荐 Score**: -2 / +1
@@ -316,6 +342,7 @@ tags:
 `departmentIDs` 在内部作用域定义但最后被引用，会导致编译错误。
 
 **代码片段**:
+
 ```go
 if len(departmentIDs) > 0 {
     // ... departmentIDs 在此作用域
@@ -323,6 +350,7 @@ if len(departmentIDs) > 0 {
 // 最后的 log 引用了 departmentIDs - 错误!
 log.Info("...", log.Any("departmentIDs", departmentIDs))
 ```
+````
 
 **Suggestion**: 修复日志语句，移除或使用正确的变量。
 
@@ -351,7 +379,9 @@ log.Info("...", log.Any("departmentIDs", departmentIDs))
 ---
 
 ## ✅ 无问题
+
 代码质量优秀，以上仅列出改进建议。
+
 ```
 
 ### Gerrit Review 评论格式（发布到 Gerrit）
@@ -361,6 +391,7 @@ log.Info("...", log.Any("departmentIDs", departmentIDs))
 **设计原则**：简明扼要，重点突出，便于在 Gerrit Web 界面快速阅读。
 
 ```
+
 === Code Review Summary ===
 
 Found Issues:
@@ -383,12 +414,14 @@ Positive Points:
    Suggestion: 修复日志语句，移除或使用正确的变量。
 
 2. [app/api/service/uim_client.go:57] 全局变量缺少并发安全保护
+
    ```go
    var globalEIAAuthChecker EIAAuthChecker = NewEIAAuthChecker()
    ```
+
    Suggestion: 使用 `sync.RWMutex` 保护访问，或使用 `atomic.Value`。
 
-3. [app/web/handler/user.go:1227] 用户ID检查逻辑不正确
+3. [app/web/handler/user.go:1227] 用户 ID 检查逻辑不正确
    Suggestion: 修复 ID 验证逻辑，添加边界检查。
 
 ---
@@ -405,7 +438,8 @@ Positive Points:
 1. [main.go:120] 可使用标准库 `strings.Split` 替代自定义实现
 
 2. [utils/string.go:78] 删除未使用的辅助函数
-```
+
+````
 
 **格式规范**：
 
@@ -566,8 +600,10 @@ Positive Points:
   // ...
   // Good
   // ...
-  ```
+````
+
 - **建议修改**: 具体的修改建议
+
 ```
 
 ### 添加新语言支持
@@ -576,3 +612,4 @@ Positive Points:
 2. 按三级分类组织检查项
 3. 更新本文档"阶段 3: 语言专项检查"部分
 4. 在"检查规则参考"章节添加该语言的检查项索引
+```
